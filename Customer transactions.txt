@@ -1,0 +1,112 @@
+import java.util.*;
+
+class Customer {
+  String name;
+  String address;
+  long phone;
+  double price;
+
+  public Customer(String name, String address, long phone, double price) {
+    this.name = name;
+    this.phone = phone;
+    this.price = price;
+
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public String getAddress() {
+    return address;
+  }
+
+  public long getPhone() {
+    return phone;
+  }
+
+  public double getPrice() {
+    return price;
+  }
+}
+
+class Transaction {
+  ArrayList<Customer> al = new ArrayList<Customer>();
+
+  void addCustomer(Customer c) {
+    al.add(c);
+  }
+
+  void removeCustomer(String c) {
+    Iterator<Customer> itr = al.iterator();
+    while (itr.hasNext()) {
+      Customer a = itr.next();
+      if (a.getName().equals(c)) {
+        itr.remove();
+      }
+    }
+
+  }
+
+  public void totalcost() {
+    double total = 0;
+    for (Customer b : al) {
+      total = total + b.getPrice();
+    }
+    System.out.println(total);
+  }
+
+  public void DisplayAll() {
+    for (Customer d : al) {
+      System.out.println(d.getName() + "" + d.getAddress() + "" + d.getPhone());
+    }
+  }
+}
+
+class Customer1 {
+  public static void main(String[] args) {
+    Scanner s = new Scanner(System.in);
+    Transaction c = new Transaction();
+
+    int option = 10;
+    do {
+      System.out.println("Enter 1 to add customer");
+      System.out.println("Enter 2 to remove customer");
+      System.out.println("Enter 3 to customer transaction");
+      System.out.println("Enter 4 to view all customers");
+      System.out.println("Enter 0 to EXIT");
+      option = s.nextInt();
+      switch (option) {
+        case 1: {
+          s.nextLine();
+          System.out.println("Enter Customer name");
+          String name = s.nextLine();
+          System.out.println("Enter Customer address");
+          String address = s.nextLine();
+          System.out.println("Enter Customer phone number");
+          long phone = s.nextLong();
+          Customer obj = new Customer(name, address, phone, 10.0);
+          c.addCustomer(obj);
+          System.out.println("Customer details are added successfully");
+          break;
+        }
+        case 2: {
+          System.out.println("Enter customer name to remove");
+          String name = s.nextLine();
+          c.removeCustomer(name);
+          System.out.println("Customer is removed successfully");
+          break;
+        }
+        case 3: {
+          System.out.println("Total customer transaction are----");
+          c.totalcost();
+          break;
+        }
+        case 4:
+          System.out.println("All the Customers");
+          c.DisplayAll();
+          break;
+      }
+    } while (option != 0);
+  }
+}
